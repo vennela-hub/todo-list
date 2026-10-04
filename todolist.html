@@ -1,0 +1,345 @@
+```html
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>My To-Do List</title>
+
+    <style>
+
+        /* ---------- General Page Styling ---------- */
+
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f2f2f2;
+            margin: 0;
+            padding: 0;
+
+            display: flex;
+            justify-content: center;
+            align-items: center;
+
+            min-height: 100vh;
+        }
+
+
+        /* ---------- Main Container ---------- */
+
+        .container {
+            background-color: white;
+            width: 400px;
+
+            padding: 30px;
+
+            border-radius: 10px;
+
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        }
+
+
+        /* ---------- Heading ---------- */
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+
+        /* ---------- Input Area ---------- */
+
+        .input-area {
+            display: flex;
+            gap: 10px;
+        }
+
+
+        #taskInput {
+            flex: 1;
+
+            padding: 12px;
+
+            border: 1px solid #ccc;
+
+            border-radius: 5px;
+
+            font-size: 16px;
+        }
+
+
+        /* ---------- Add Button ---------- */
+
+        #addButton {
+            padding: 12px 18px;
+
+            background-color: #333;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+        }
+
+
+        #addButton:hover {
+            background-color: #555;
+        }
+
+
+        /* ---------- Task List ---------- */
+
+        ul {
+            list-style: none;
+
+            padding: 0;
+
+            margin-top: 25px;
+        }
+
+
+        /* ---------- Individual Task ---------- */
+
+        li {
+            display: flex;
+
+            justify-content: space-between;
+
+            align-items: center;
+
+            background-color: #f5f5f5;
+
+            padding: 12px;
+
+            margin-bottom: 10px;
+
+            border-radius: 5px;
+        }
+
+
+        /* ---------- Completed Task ---------- */
+
+        li.completed {
+            text-decoration: line-through;
+
+            color: gray;
+        }
+
+
+        /* ---------- Delete Button ---------- */
+
+        .delete-button {
+            background-color: #e74c3c;
+
+            color: white;
+
+            border: none;
+
+            padding: 6px 10px;
+
+            border-radius: 4px;
+
+            cursor: pointer;
+        }
+
+
+        .delete-button:hover {
+            background-color: #c0392b;
+        }
+
+
+        /* ---------- Clear All Button ---------- */
+
+        #clearButton {
+            width: 100%;
+
+            margin-top: 15px;
+
+            padding: 12px;
+
+            background-color: #333;
+
+            color: white;
+
+            border: none;
+
+            border-radius: 5px;
+
+            cursor: pointer;
+        }
+
+
+        #clearButton:hover {
+            background-color: #555;
+        }
+
+    </style>
+
+</head>
+
+
+<body>
+
+    <!-- Main Container -->
+
+    <div class="container">
+
+        <h1>My To-Do List</h1>
+
+
+        <!-- Input Area -->
+
+        <div class="input-area">
+
+            <input
+                type="text"
+                id="taskInput"
+                placeholder="Enter a task"
+            >
+
+            <button id="addButton">
+                Add
+            </button>
+
+        </div>
+
+
+        <!-- Task List -->
+
+        <ul id="taskList"></ul>
+
+
+        <!-- Clear All Button -->
+
+        <button id="clearButton">
+            Clear All
+        </button>
+
+    </div>
+
+
+    <!-- ---------- JavaScript ---------- -->
+
+    <script>
+
+        // Get HTML elements
+
+        const taskInput = document.getElementById("taskInput");
+
+        const addButton = document.getElementById("addButton");
+
+        const taskList = document.getElementById("taskList");
+
+        const clearButton = document.getElementById("clearButton");
+
+
+        // Add Task Function
+
+        function addTask() {
+
+            // Get input value
+
+            const taskText = taskInput.value.trim();
+
+
+            // Check if input is empty
+
+            if (taskText === "") {
+
+                alert("Please enter a task.");
+
+                return;
+            }
+
+
+            // Create a new list item
+
+            const li = document.createElement("li");
+
+
+            // Create task text
+
+            const span = document.createElement("span");
+
+            span.textContent = taskText;
+
+
+            // Create delete button
+
+            const deleteButton = document.createElement("button");
+
+            deleteButton.textContent = "Delete";
+
+            deleteButton.className = "delete-button";
+
+
+            // Mark task as completed
+
+            span.addEventListener("click", function () {
+
+                li.classList.toggle("completed");
+
+            });
+
+
+            // Delete task
+
+            deleteButton.addEventListener("click", function () {
+
+                li.remove();
+
+            });
+
+
+          
+            li.appendChild(span);
+
+            li.appendChild(deleteButton);
+
+
+           
+
+            taskList.appendChild(li);
+
+
+            // Clear input field
+
+            taskInput.value = "";
+
+        }
+
+
+       
+        addButton.addEventListener("click", addTask);
+
+
+      
+        taskInput.addEventListener("keypress", function (event) {
+
+            if (event.key === "Enter") {
+
+                addTask();
+
+            }
+
+        });
+
+
+        
+        clearButton.addEventListener("click", function () {
+
+            taskList.innerHTML = "";
+
+        });
+
+    </script>
+
+</body>
+
+</html>
+```
